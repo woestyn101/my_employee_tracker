@@ -1,6 +1,6 @@
 import {db} from './db_connection.js';
 import { askQuestions } from '../index.js';
-import { departmentArray, roleArray, managerArray  } from './questions.js';
+import { departmentArray, roleArray, managerArray, employeeArray, employeeIdsArray, roleIdsArray  } from './questions.js';
 
 export function show_departments () {
     db.query('SELECT * FROM departments', function (err, results) {
@@ -30,15 +30,17 @@ export function get_Departments(){
   }
   
   export function get_Roles(){
-    db.query('SELECT title FROM employee_role', function (err, results) {
+    db.query('SELECT role_id, title FROM employee_role', function (err, results) {
        
      //console.log(results);
      for (const key in results){
         roleArray.push(results[key].title);
+        roleIdsArray.push(results[key].role_id);
        
       }
       
-      //console.log(departmentArray);
+    // console.log(roleArray);
+    // console.log(roleIdsArray);
             
     
       
@@ -66,9 +68,9 @@ export function show_employees () {
     db.query(`SELECT e.emp_id, e.first_name, e.last_name, title, salary,
     concat(em.first_name, ' ', em.last_name) AS Manager, department 
      FROM employee e
-    JOIN employee_role on 
+     JOIN employee_role on 
     e.role_id = employee_role.role_id
-    JOIN employee em on
+    LEFT JOIN employee em on
     e.manager_id = em.emp_id
     JOIN departments on departments.dept_id = employee_role.dept_id
     `, function (err, results) {
@@ -111,6 +113,35 @@ export function add_role(role_title, role_salary, role_department){
 export function add_employee(the_name, the_last_name, the_role, the_manager){
     db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id ) VALUES (?, ?, ?, ?)', [the_name, the_last_name, the_role, the_manager]);  
     console.log("The employee was added!");
+    askQuestions() ;
+
+}
+
+export function get_Employees(){
+    db.query('SELECT emp_id, first_name, last_name FROM employee', function (err, results) {
+       
+     //console.log(results);
+     for (const key in results){
+        employeeArray.push(results[key].first_name + " " + results[key].last_name);
+        employeeIdsArray.push(results[key].emp_id);
+       
+      }
+      
+    //   console.log(employeeArray);
+    //   console.log(employeeIdsArray);
+            
+    
+      
+      });  
+}
+
+export function update_the_employee_role(get_role_id, get_employee_id){
+    db.query(`update employee
+    set 
+    role_id = ?
+    where
+    emp_id = ?`, [get_role_id, get_employee_id]);  
+    console.log("The employee was updated!");
     askQuestions() ;
 
 }
