@@ -19,6 +19,10 @@ export const main_menu_questions = [
 
 ]
 
+export var departmentArray = [];
+export var roleArray = [];
+export var managerArray = [];
+
 export const add_department_question = 
     
     [
@@ -52,4 +56,33 @@ export const add_department_question =
           default: ""
       }
       ]
+
+     export const add_employee_questions =  [
+        /* Pass your questions in here */
+        {
+            type: 'input',
+            name: 'add_first_name',
+            message: "What is the employee's first name?",
+            default: ""
+        }, 
+        {
+            type: 'input',
+            name: 'add_last_name',
+            message: "What is the employee's last name?",
+            default: ""
+        }, {
+            type: 'list',
+            name: 'choose_therole',
+            message: "What is the employee's role",
+            choices: roleArray,
+            default: ""
+        },
+        {
+            type: 'list',
+            name: 'the_manager',
+            message: "Who is the manager",
+            choices: managerArray,
+            default: ""
+        }
+    ]
 
