@@ -14,6 +14,7 @@ export const main_menu_questions = [
             'Update employee manager',
             'View employees by manager',
             'View employees by department',
+            'Delete department',
           'exit'],
             default: "See all Departments"
         }
@@ -148,6 +149,17 @@ export const add_department_question =
           type: 'list',
           name: 'choose_the_department',
           message: "Choose the department to view employees?",
+          choices: departmentArray,
+          default: ""
+      }
+      ]
+
+      export const delete_department_question = [
+        /* Pass your questions in here */
+        {
+          type: 'list',
+          name: 'delete_the_department',
+          message: "Choose the department to delete:",
           choices: departmentArray,
           default: ""
       }

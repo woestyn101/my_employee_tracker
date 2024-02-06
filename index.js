@@ -2,13 +2,13 @@ import mysql from 'mysql2'
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 
-import { main_menu_questions, add_department_question, add_role_questions, add_employee_questions, update_employee_role_questions, employeeArray, employeeIdsArray, roleIdsArray, departmentIdsArray, managerIdsArray, update_employee_manager_questions, choose_manager_questions, choose_department_question } from './js/questions.js';
+import { main_menu_questions, add_department_question, add_role_questions, add_employee_questions, update_employee_role_questions, employeeArray, employeeIdsArray, roleIdsArray, departmentIdsArray, managerIdsArray, update_employee_manager_questions, choose_manager_questions, choose_department_question, delete_department_question } from './js/questions.js';
 
 import { departmentArray, roleArray, managerArray  } from './js/questions.js';
 
 import {db} from './js/db_connection.js';
 
-import { show_departments, get_Departments, get_Roles, get_Managers, show_employees, show_employee_roles, add_department, add_role, add_employee, get_Employees, show_employees_by_manager, show_employees_by_department } from './js/display_db_functions.js';
+import { show_departments, get_Departments, get_Roles, get_Managers, show_employees, show_employee_roles, add_department, add_role, add_employee, get_Employees, show_employees_by_manager, show_employees_by_department, delete_department } from './js/display_db_functions.js';
 
 
 
@@ -48,10 +48,12 @@ export function askQuestions(){
     else if (answers.choose_option === "Update employee manager") {
             process_update_employee_manager();
     }else if (answers.choose_option === "View employees by manager") {
-      process_show_employee_by_manager();
-      } else if (answers.choose_option === "View employees by department") {
-        process_show_employee_by_department();
-        } else {
+            process_show_employee_by_manager();
+    } else if (answers.choose_option === "View employees by department") {
+             process_show_employee_by_department();
+    } else if (answers.choose_option === "Delete department") {
+               process_delete_department();
+          }  else {
         process.exit();
     }
 
@@ -255,6 +257,30 @@ function process_show_employee_by_department(){
       }
   });
 }
+
+function process_delete_department(){
+  inquirer
+  .prompt(delete_department_question)
+  .then((answers) => {
+      //console.log(answers.choose_the_manager)
+
+      let indexDepartmentInArray = (departmentArray.indexOf(answers.delete_the_department)) 
+      //console.log(indexManagerInArray);
+      let department_id_chosen = departmentIdsArray[indexDepartmentInArray];
+      delete_department(department_id_chosen)
+      console.log("===========================")
+     
+      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+  })
+  .catch((error) => {
+      if (error.isTtyError) {
+      console.log(error);
+      } else {
+      console.log("New error at process delete department");
+      }
+  });
+}
+
 
 
 
