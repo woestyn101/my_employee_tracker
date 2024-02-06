@@ -94,7 +94,7 @@ export function show_employees () {
 } 
 
 export function show_employee_roles () {
-    db.query('SELECT role_id, title,  department, salary FROM employee_role JOIN departments ON employee_role.dept_id = departments.dept_id;', function (err, results) {
+    db.query('SELECT role_id, title,  department, salary FROM employee_role LEFT JOIN departments ON employee_role.dept_id = departments.dept_id;', function (err, results) {
         // console.log(results);
         // console.log(typeof(results));
         console.log("================================");
