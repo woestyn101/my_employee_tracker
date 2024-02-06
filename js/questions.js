@@ -15,6 +15,8 @@ export const main_menu_questions = [
             'View employees by manager',
             'View employees by department',
             'Delete department',
+            'Delete a role',
+            'Delete an employee',
           'exit'],
             default: "See all Departments"
         }
@@ -161,6 +163,28 @@ export const add_department_question =
           name: 'delete_the_department',
           message: "Choose the department to delete:",
           choices: departmentArray,
+          default: ""
+      }
+      ]
+
+      export const delete_role_question = [
+        /* Pass your questions in here */
+        {
+          type: 'list',
+          name: 'delete_the_role',
+          message: "Choose the role to delete:",
+          choices: roleArray,
+          default: ""
+      }
+      ]
+
+      export const delete_employee_question = [
+        /* Pass your questions in here */
+        {
+          type: 'list',
+          name: 'delete_employee',
+          message: "Choose the employee to delete:",
+          choices: employeeArray,
           default: ""
       }
       ]
