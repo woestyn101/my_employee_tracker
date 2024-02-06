@@ -198,8 +198,6 @@ function show_departments () {
 
 } 
 
-
-
 function get_Departments(){
     db.query('SELECT * FROM departments', function (err, results) {
        
@@ -259,7 +257,7 @@ get_Managers();
 
 
 function show_employee_roles () {
-    db.query('SELECT * FROM employee_role', function (err, results) {
+    db.query('SELECT role_id, title,  department, salary FROM employee_role JOIN departments ON employee_role.dept_id = departments.dept_id;', function (err, results) {
         // console.log(results);
         // console.log(typeof(results));
        console.table(results);   
@@ -271,7 +269,15 @@ function show_employee_roles () {
 } 
 
 function show_employees () {
-    db.query('SELECT * FROM employee', function (err, results) {
+    db.query(`SELECT e.emp_id, e.first_name, e.last_name, title, salary,
+    concat(em.first_name, ' ', em.last_name) AS Manager, department 
+     FROM employee e
+    JOIN employee_role on 
+    e.role_id = employee_role.role_id
+    JOIN employee em on
+    e.manager_id = em.emp_id
+    JOIN departments on departments.dept_id = employee_role.dept_id
+    `, function (err, results) {
         // console.log(results);
         // console.log(typeof(results));
        console.table(results);   
