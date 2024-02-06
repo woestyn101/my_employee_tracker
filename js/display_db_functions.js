@@ -75,11 +75,11 @@ export function show_employees () {
     db.query(`SELECT e.emp_id, e.first_name, e.last_name, title, salary,
     concat(em.first_name, ' ', em.last_name) AS Manager, department 
      FROM employee e
-     JOIN employee_role on 
+     LEFT JOIN employee_role on 
     e.role_id = employee_role.role_id
     LEFT JOIN employee em on
     e.manager_id = em.emp_id
-    JOIN departments on departments.dept_id = employee_role.dept_id
+    LEFT JOIN departments on departments.dept_id = employee_role.dept_id
     `, function (err, results) {
         // console.log(results);
         // console.log(typeof(results));
@@ -117,6 +117,7 @@ export function add_department(dep){
 export function add_role(role_title, role_salary, role_department){
     db.query('INSERT INTO employee_role (title, salary, dept_id ) VALUES (?, ?, ?)', [role_title, role_salary, role_department]);  
     console.log("The role was added!");
+    console.log("===========================")
     askQuestions() ;
 
 }
