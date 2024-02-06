@@ -1,7 +1,7 @@
 import mysql from 'mysql2'
 import inquirer from 'inquirer';
 import chalk from 'chalk';
-import { main_menu_questions, add_department_question, add_role_questions, add_employee_questions, update_employee_role_questions, employeeArray, employeeIdsArray, roleIdsArray } from './js/questions.js';
+import { main_menu_questions, add_department_question, add_role_questions, add_employee_questions, update_employee_role_questions, employeeArray, employeeIdsArray, roleIdsArray, departmentIdsArray, managerIdsArray } from './js/questions.js';
 import { departmentArray, roleArray, managerArray  } from './js/questions.js';
 import {db} from './js/db_connection.js';
 import { show_departments, get_Departments, get_Roles, get_Managers, show_employees, show_employee_roles, add_department, add_role, add_employee, get_Employees } from './js/display_db_functions.js';
@@ -94,9 +94,12 @@ function process_role(){
   .then((answers) => {
    
   var convertoDeci = parseFloat(answers.the_salary);
-  var indexDept = (departmentArray.indexOf(answers.choose_department)) + 1
+  //var indexDept = (departmentArray.indexOf(answers.choose_department)) + 1
+
+  var indexDepartmentInArray = (departmentArray.indexOf(answers.choose_department)) 
+  var department_id_toAdd = departmentIdsArray[indexDepartmentInArray];
   
-   add_role(answers.the_role,convertoDeci, indexDept );
+   add_role(answers.the_role,convertoDeci, department_id_toAdd );
    
   })
   .catch((error) => {
@@ -115,15 +118,26 @@ function process_employee(){
   .then((answers) => {
       var indexRoles = (roleArray.indexOf(answers.choose_therole)) + 1
       var indexManager = (managerArray.indexOf(answers.the_manager)) + 1
-                  
+
+      var indexManagerInArray = (managerArray.indexOf(answers.the_manager)) 
+      //console.log(indexManagerInArray);
+      let manager_id_toAdd = managerIdsArray[indexManagerInArray];
+
+      var indexRoleInArray = (roleArray.indexOf(answers.choose_therole)) 
+      let role_id_toAdd = roleIdsArray[indexRoleInArray];
+        
+      let role_id = role_id_toAdd;
+      //let manager_id = manager_id_toAdd;
+      let the_manager_id = manager_id_toAdd;
      
-      add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+      add_employee(answers.add_first_name, answers.add_last_name, role_id, the_manager_id );
   })
   .catch((error) => {
       if (error.isTtyError) {
       console.log(error);
       } else {
-      console.log("New error");
+      console.log("New error at employee process");
+     
       }
   });
 }
@@ -135,8 +149,8 @@ function process_update_employee(){
    // console.log(answers.choose_employee);
     //console.log(answers.choose_role);
      //console.log(employeeArray);
-      var indexRoles = (roleArray.indexOf(answers.choose_role)) + 1
-      var indexEmployee = (employeeArray.indexOf(answers.choose_employee)) + 1
+      // var indexRoles = (roleArray.indexOf(answers.choose_role)) + 1
+      // var indexEmployee = (employeeArray.indexOf(answers.choose_employee)) + 1
 
       var indexRoleInArray = (roleArray.indexOf(answers.choose_role)) 
       var role_id_toUpdate = roleIdsArray[indexRoleInArray];
@@ -144,8 +158,8 @@ function process_update_employee(){
       var indexEmployeeInArray = (employeeArray.indexOf(answers.choose_employee)) 
       var emp_id_toUpdate = employeeIdsArray[indexEmployeeInArray];
 
-      console.log(indexRoles);
-      console.log(indexEmployee)
+      // console.log(indexRoles);
+      // console.log(indexEmployee)
      // var r_id = indexRoles;
       //var e_id = indexEmployee;
       var e_id = emp_id_toUpdate;

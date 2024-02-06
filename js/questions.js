@@ -21,8 +21,10 @@ export const main_menu_questions = [
 ]
 
 export var departmentArray = [];
+export var departmentIdsArray = [];
 export var roleArray = [];
 export var managerArray = [];
+export var managerIdsArray = [];
 export var employeeArray = [];
 export var employeeIdsArray = [];
 export var  roleIdsArray = [];

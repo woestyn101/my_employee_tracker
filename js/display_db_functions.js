@@ -1,6 +1,6 @@
 import {db} from './db_connection.js';
 import { askQuestions } from '../index.js';
-import { departmentArray, roleArray, managerArray, employeeArray, employeeIdsArray, roleIdsArray  } from './questions.js';
+import { departmentArray, roleArray, managerArray, employeeArray, employeeIdsArray, roleIdsArray, departmentIdsArray, managerIdsArray  } from './questions.js';
 
 export function show_departments () {
     db.query('SELECT * FROM departments', function (err, results) {
@@ -15,14 +15,16 @@ export function show_departments () {
 } 
 
 export function get_Departments(){
-    db.query('SELECT * FROM departments', function (err, results) {
+    db.query('SELECT dept_id, department FROM departments', function (err, results) {
        
     
       for (const key in results){
         departmentArray.push(results[key].department);
+        departmentIdsArray.push(results[key].dept_id);
        
       }
-      //console.log(departmentArray);
+    //   console.log(departmentArray);
+    //   console.log(departmentIdsArray);
             
     
       
@@ -48,16 +50,19 @@ export function get_Departments(){
 }
 
 export function get_Managers(){
-    db.query('SELECT first_name, last_name FROM employee where manager_id IS NULL', function (err, results) {
+    db.query('SELECT emp_id, first_name, last_name FROM employee where manager_id IS NULL', function (err, results) {
        
      //console.log(results);
      for (const key in results){
         managerArray.push(results[key].first_name + " " + results[key].last_name);
-       // managerArray.push(results[key].last_name);
+        managerIdsArray.push(results[key].emp_id);
        
       }
-      
-      //console.log(managerArray);
+
+            
+    console.log(managerArray);
+    console.log(managerIdsArray);
+   console.log(typeof(managerIdsArray[0]));
             
     
       
