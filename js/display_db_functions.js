@@ -6,7 +6,9 @@ export function show_departments () {
     db.query('SELECT * FROM departments', function (err, results) {
         // console.log(results);
         // console.log(typeof(results));
-       console.table(results);   
+        console.log("================================");
+       console.table(results);  
+       console.log("================================"); 
              askQuestions() ;
        
       
@@ -60,9 +62,9 @@ export function get_Managers(){
       }
 
             
-    console.log(managerArray);
-    console.log(managerIdsArray);
-   console.log(typeof(managerIdsArray[0]));
+  //   console.log(managerArray);
+  //   console.log(managerIdsArray);
+  //  console.log(typeof(managerIdsArray[0]));
             
     
       
@@ -81,7 +83,9 @@ export function show_employees () {
     `, function (err, results) {
         // console.log(results);
         // console.log(typeof(results));
-       console.table(results);   
+        console.log("================================");
+       console.table(results); 
+       console.log("================================");  
              askQuestions() ;
        
       
@@ -93,7 +97,9 @@ export function show_employee_roles () {
     db.query('SELECT role_id, title,  department, salary FROM employee_role JOIN departments ON employee_role.dept_id = departments.dept_id;', function (err, results) {
         // console.log(results);
         // console.log(typeof(results));
-       console.table(results);   
+        console.log("================================");
+       console.table(results);
+       console.log("================================");   
              askQuestions() ;
        
       
@@ -150,5 +156,44 @@ export function update_the_employee_role(get_role_id, get_employee_id){
     askQuestions() ;
 
 }
+
+export function show_employees_by_manager (manager) {
+  db.query(`select e.first_name, e.last_name, 
+  concat(em.first_name, ' ', em.last_name) AS Manager
+   from employee e
+   LEFT JOIN employee em on
+      e.manager_id = em.emp_id
+      where e.manager_id=?;`, [manager], function (err, results) {
+      // console.log(results);
+      // console.log(typeof(results));
+      console.log("================================");
+     console.table(results);   
+     console.log("================================");
+           askQuestions() ;
+     
+    
+    });  
+
+} 
+
+export function show_employees_by_department (department_id) {
+  db.query(`SELECT e.emp_id, e.first_name, e.last_name, 
+  department 
+  FROM employee e
+  JOIN employee_role on 
+ e.role_id = employee_role.role_id
+   JOIN departments on departments.dept_id = employee_role.dept_id
+   where departments.dept_id = ?;`, [department_id], function (err, results) {
+      // console.log(results);
+      // console.log(typeof(results));
+      console.log("================================");
+     console.table(results);   
+     console.log("================================");
+           askQuestions() ;
+     
+    
+    });  
+
+} 
 
 

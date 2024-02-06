@@ -11,6 +11,9 @@ export const main_menu_questions = [
                 'Add a role',
             'Add an employee',
             'Update an employee',
+            'Update employee manager',
+            'View employees by manager',
+            'View employees by department',
           'exit'],
             default: "See all Departments"
         }
@@ -108,5 +111,45 @@ export const add_department_question =
         choices: roleArray,
         default: ""
     }
+      ]
+
+      export const update_employee_manager_questions = [
+        /* Pass your questions in here */
+        {
+          type: 'list',
+          name: 'choose_employee',
+          message: "Choose the employee to update manager?",
+          choices: employeeArray,
+          default: ""
+      }, 
+      {
+        type: 'list',
+        name: 'the_new_manager',
+        message: "Which manager do you want to assign to the employee?",
+        choices: managerArray,
+        default: ""
+    }
+      ]
+
+      export const choose_manager_questions = [
+        /* Pass your questions in here */
+        {
+          type: 'list',
+          name: 'choose_the_manager',
+          message: "Choose manager to view his/her employees?",
+          choices: managerArray,
+          default: ""
+      }
+      ]
+
+      export const choose_department_question = [
+        /* Pass your questions in here */
+        {
+          type: 'list',
+          name: 'choose_the_department',
+          message: "Choose the department to view employees?",
+          choices: departmentArray,
+          default: ""
+      }
       ]
 

@@ -1,10 +1,14 @@
 import mysql from 'mysql2'
 import inquirer from 'inquirer';
 import chalk from 'chalk';
-import { main_menu_questions, add_department_question, add_role_questions, add_employee_questions, update_employee_role_questions, employeeArray, employeeIdsArray, roleIdsArray, departmentIdsArray, managerIdsArray } from './js/questions.js';
+
+import { main_menu_questions, add_department_question, add_role_questions, add_employee_questions, update_employee_role_questions, employeeArray, employeeIdsArray, roleIdsArray, departmentIdsArray, managerIdsArray, update_employee_manager_questions, choose_manager_questions, choose_department_question } from './js/questions.js';
+
 import { departmentArray, roleArray, managerArray  } from './js/questions.js';
+
 import {db} from './js/db_connection.js';
-import { show_departments, get_Departments, get_Roles, get_Managers, show_employees, show_employee_roles, add_department, add_role, add_employee, get_Employees } from './js/display_db_functions.js';
+
+import { show_departments, get_Departments, get_Roles, get_Managers, show_employees, show_employee_roles, add_department, add_role, add_employee, get_Employees, show_employees_by_manager, show_employees_by_department } from './js/display_db_functions.js';
 
 
 
@@ -39,8 +43,15 @@ export function askQuestions(){
     } else if (answers.choose_option === "Add an employee") {
                  process_employee();
     }   else if (answers.choose_option === "Update an employee") {
-        process_update_employee();
-    } else {
+              process_update_employee();
+    }
+    else if (answers.choose_option === "Update employee manager") {
+            process_update_employee_manager();
+    }else if (answers.choose_option === "View employees by manager") {
+      process_show_employee_by_manager();
+      } else if (answers.choose_option === "View employees by department") {
+        process_show_employee_by_department();
+        } else {
         process.exit();
     }
 
@@ -116,8 +127,8 @@ function process_employee(){
   inquirer
   .prompt(add_employee_questions)
   .then((answers) => {
-      var indexRoles = (roleArray.indexOf(answers.choose_therole)) + 1
-      var indexManager = (managerArray.indexOf(answers.the_manager)) + 1
+      // var indexRoles = (roleArray.indexOf(answers.choose_therole)) + 1
+      // var indexManager = (managerArray.indexOf(answers.the_manager)) + 1
 
       var indexManagerInArray = (managerArray.indexOf(answers.the_manager)) 
       //console.log(indexManagerInArray);
@@ -146,22 +157,13 @@ function process_update_employee(){
   inquirer
   .prompt(update_employee_role_questions)
   .then((answers) => {
-   // console.log(answers.choose_employee);
-    //console.log(answers.choose_role);
-     //console.log(employeeArray);
-      // var indexRoles = (roleArray.indexOf(answers.choose_role)) + 1
-      // var indexEmployee = (employeeArray.indexOf(answers.choose_employee)) + 1
-
+ 
       var indexRoleInArray = (roleArray.indexOf(answers.choose_role)) 
       var role_id_toUpdate = roleIdsArray[indexRoleInArray];
 
       var indexEmployeeInArray = (employeeArray.indexOf(answers.choose_employee)) 
       var emp_id_toUpdate = employeeIdsArray[indexEmployeeInArray];
 
-      // console.log(indexRoles);
-      // console.log(indexEmployee)
-     // var r_id = indexRoles;
-      //var e_id = indexEmployee;
       var e_id = emp_id_toUpdate;
       var r_id = role_id_toUpdate;
       db.query('UPDATE employee SET role_id=? WHERE emp_id=?', [r_id, e_id] );  
@@ -177,3 +179,82 @@ function process_update_employee(){
       }
   });
 }
+
+function process_update_employee_manager(){
+  inquirer
+  .prompt(update_employee_manager_questions)
+  .then((answers) => {
+
+      let indexManagerInArray = (managerArray.indexOf(answers.the_new_manager)) 
+      //console.log(indexManagerInArray);
+      let manager_id_toUpdate = managerIdsArray[indexManagerInArray];
+     
+
+      let indexEmployeeInArray = (employeeArray.indexOf(answers.choose_employee)) 
+      let emp_id_toUpdate = employeeIdsArray[indexEmployeeInArray];
+
+      let e_id = emp_id_toUpdate;
+      let m_id = manager_id_toUpdate;
+
+      db.query('UPDATE employee SET manager_id=? WHERE emp_id=?', [m_id, e_id] );  
+      console.log("New manager was assigned!");
+      askQuestions();
+      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+  })
+  .catch((error) => {
+      if (error.isTtyError) {
+      console.log(error);
+      } else {
+      console.log("New error at process update employee manager");
+      }
+  });
+}
+
+function process_show_employee_by_manager(){
+  inquirer
+  .prompt(choose_manager_questions)
+  .then((answers) => {
+      //console.log(answers.choose_the_manager)
+
+      let indexManagerInArray = (managerArray.indexOf(answers.choose_the_manager)) 
+      //console.log(indexManagerInArray);
+      let manager_id_chosen = managerIdsArray[indexManagerInArray];
+      show_employees_by_manager(manager_id_chosen);
+      
+      askQuestions();
+      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+  })
+  .catch((error) => {
+      if (error.isTtyError) {
+      console.log(error);
+      } else {
+      console.log("New error at process update employee manager");
+      }
+  });
+}
+
+function process_show_employee_by_department(){
+  inquirer
+  .prompt(choose_department_question)
+  .then((answers) => {
+      //console.log(answers.choose_the_manager)
+
+      let indexDepartmentInArray = (departmentArray.indexOf(answers.choose_the_department)) 
+      //console.log(indexManagerInArray);
+      let department_id_chosen = departmentIdsArray[indexDepartmentInArray];
+      show_employees_by_department (department_id_chosen);
+      
+      askQuestions();
+      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+  })
+  .catch((error) => {
+      if (error.isTtyError) {
+      console.log(error);
+      } else {
+      console.log("New error at process update employee manager");
+      }
+  });
+}
+
+
+
