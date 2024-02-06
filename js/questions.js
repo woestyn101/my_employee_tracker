@@ -10,6 +10,7 @@ export const main_menu_questions = [
                 'Add a department',
                 'Add a role',
             'Add an employee',
+            'Update an employee',
           'exit'],
             default: "See all Departments"
         }
@@ -22,6 +23,9 @@ export const main_menu_questions = [
 export var departmentArray = [];
 export var roleArray = [];
 export var managerArray = [];
+export var employeeArray = [];
+export var employeeIdsArray = [];
+export var  roleIdsArray = [];
 
 export const add_department_question = 
     
@@ -85,4 +89,22 @@ export const add_department_question =
             default: ""
         }
     ]
+
+    export const update_employee_role_questions = [
+        /* Pass your questions in here */
+        {
+          type: 'list',
+          name: 'choose_employee',
+          message: "Choose the employee to update?",
+          choices: employeeArray,
+          default: ""
+      }, 
+      {
+        type: 'list',
+        name: 'choose_role',
+        message: "Which role do you want to assign to the employee?",
+        choices: roleArray,
+        default: ""
+    }
+      ]
 

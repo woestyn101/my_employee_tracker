@@ -1,10 +1,10 @@
 import mysql from 'mysql2'
 import inquirer from 'inquirer';
 import chalk from 'chalk';
-import { main_menu_questions, add_department_question, add_role_questions, add_employee_questions } from './js/questions.js';
+import { main_menu_questions, add_department_question, add_role_questions, add_employee_questions, update_employee_role_questions, employeeArray, employeeIdsArray, roleIdsArray } from './js/questions.js';
 import { departmentArray, roleArray, managerArray  } from './js/questions.js';
 import {db} from './js/db_connection.js';
-import { show_departments, get_Departments, get_Roles, get_Managers, show_employees, show_employee_roles, add_department, add_role, add_employee } from './js/display_db_functions.js';
+import { show_departments, get_Departments, get_Roles, get_Managers, show_employees, show_employee_roles, add_department, add_role, add_employee, get_Employees } from './js/display_db_functions.js';
 
 
 
@@ -38,7 +38,9 @@ export function askQuestions(){
 
     } else if (answers.choose_option === "Add an employee") {
                  process_employee();
-    }else {
+    }   else if (answers.choose_option === "Update an employee") {
+        process_update_employee();
+    } else {
         process.exit();
     }
 
@@ -62,6 +64,9 @@ get_Departments();
 get_Roles();
 // get managers from db to be used in inquirer as choice options
 get_Managers();
+// get employees from db to be used in inquirer as choice options
+get_Employees();
+
 
 
 function process_dept(){
@@ -113,6 +118,42 @@ function process_employee(){
                   
      
       add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+  })
+  .catch((error) => {
+      if (error.isTtyError) {
+      console.log(error);
+      } else {
+      console.log("New error");
+      }
+  });
+}
+
+function process_update_employee(){
+  inquirer
+  .prompt(update_employee_role_questions)
+  .then((answers) => {
+   // console.log(answers.choose_employee);
+    //console.log(answers.choose_role);
+     //console.log(employeeArray);
+      var indexRoles = (roleArray.indexOf(answers.choose_role)) + 1
+      var indexEmployee = (employeeArray.indexOf(answers.choose_employee)) + 1
+
+      var indexRoleInArray = (roleArray.indexOf(answers.choose_role)) 
+      var role_id_toUpdate = roleIdsArray[indexRoleInArray];
+
+      var indexEmployeeInArray = (employeeArray.indexOf(answers.choose_employee)) 
+      var emp_id_toUpdate = employeeIdsArray[indexEmployeeInArray];
+
+      console.log(indexRoles);
+      console.log(indexEmployee)
+     // var r_id = indexRoles;
+      //var e_id = indexEmployee;
+      var e_id = emp_id_toUpdate;
+      var r_id = role_id_toUpdate;
+      db.query('UPDATE employee SET role_id=? WHERE emp_id=?', [r_id, e_id] );  
+      console.log("The employee was updated!");
+      askQuestions();
+      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
   })
   .catch((error) => {
       if (error.isTtyError) {
