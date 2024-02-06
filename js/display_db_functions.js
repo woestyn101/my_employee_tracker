@@ -197,4 +197,12 @@ export function show_employees_by_department (department_id) {
 
 } 
 
+export function delete_department(department_id){
+  db.query('DELETE FROM departments WHERE dept_id=?;', [department_id]);  
+  console.log("The department was deleted!");
+  console.log("===========================");
+  askQuestions() ;
+
+}
+
 
