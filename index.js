@@ -2,13 +2,13 @@ import mysql from 'mysql2'
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 
-import { main_menu_questions, add_department_question, add_role_questions, add_employee_questions, update_employee_role_questions, employeeArray, employeeIdsArray, roleIdsArray, departmentIdsArray, managerIdsArray, update_employee_manager_questions, choose_manager_questions, choose_department_question, delete_department_question } from './js/questions.js';
+import { main_menu_questions, add_department_question, add_role_questions, add_employee_questions, update_employee_role_questions, employeeArray, employeeIdsArray, roleIdsArray, departmentIdsArray, managerIdsArray, update_employee_manager_questions, choose_manager_questions, choose_department_question, delete_department_question, delete_role_question, delete_employee_question } from './js/questions.js';
 
 import { departmentArray, roleArray, managerArray  } from './js/questions.js';
 
 import {db} from './js/db_connection.js';
 
-import { show_departments, get_Departments, get_Roles, get_Managers, show_employees, show_employee_roles, add_department, add_role, add_employee, get_Employees, show_employees_by_manager, show_employees_by_department, delete_department } from './js/display_db_functions.js';
+import { show_departments, get_Departments, get_Roles, get_Managers, show_employees, show_employee_roles, add_department, add_role, add_employee, get_Employees, show_employees_by_manager, show_employees_by_department, delete_department, delete_role, delete_employee } from './js/display_db_functions.js';
 
 
 
@@ -53,7 +53,11 @@ export function askQuestions(){
              process_show_employee_by_department();
     } else if (answers.choose_option === "Delete department") {
                process_delete_department();
-          }  else {
+    }else if (answers.choose_option === "Delete a role") {
+            process_delete_role();
+    } else if (answers.choose_option === "Delete an employee") {
+        process_delete_employee();
+   }   else {
         process.exit();
     }
 
@@ -280,6 +284,59 @@ function process_delete_department(){
       }
   });
 }
+
+function process_delete_role(){
+  inquirer
+  .prompt(delete_role_question)
+  .then((answers) => {
+      //console.log(answers.choose_the_manager)
+
+       let indexRoleInArray = (roleArray.indexOf(answers.delete_the_role)) 
+      let role_id_toDelete = roleIdsArray[indexRoleInArray];
+
+      
+      delete_role(role_id_toDelete);
+      console.log("===========================")
+     
+      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+  })
+  .catch((error) => {
+      if (error.isTtyError) {
+      console.log(error);
+      } else {
+      console.log("New error at process delete role");
+      }
+  });
+}
+
+
+function process_delete_employee(){
+  inquirer
+  .prompt(delete_employee_question)
+  .then((answers) => {
+      //console.log(answers.choose_the_manager)
+
+      let indexEmployeeInArray = (employeeArray.indexOf(answers.delete_employee)) 
+      let employee_id_toDelete = employeeIdsArray[indexEmployeeInArray];
+
+      
+     delete_employee(employee_id_toDelete);
+      console.log("===========================")
+     
+      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+  })
+  .catch((error) => {
+      if (error.isTtyError) {
+      console.log(error);
+      } else {
+      console.log("New error at process delete employee");
+      }
+  });
+}
+
+
+
+
 
 
 

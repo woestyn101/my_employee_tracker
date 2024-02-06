@@ -205,4 +205,20 @@ export function delete_department(department_id){
 
 }
 
+export function delete_role(role_id){
+  db.query('DELETE FROM employee_role WHERE role_id=?;', [role_id]);  
+  console.log("The role was deleted!");
+  console.log("===========================");
+  askQuestions() ;
+
+}
+
+export function delete_employee(employee_id){
+  db.query('DELETE FROM employee WHERE emp_id=?;', [employee_id]);  
+  console.log("The employee was deleted!");
+  console.log("===========================");
+  askQuestions() ;
+
+}
+
 
