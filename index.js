@@ -190,13 +190,15 @@ function show_departments () {
     db.query('SELECT * FROM departments', function (err, results) {
         // console.log(results);
         // console.log(typeof(results));
-       //console.table(results);   
+       console.table(results);   
              askQuestions() ;
        
       
       });  
 
 } 
+
+
 
 function get_Departments(){
     db.query('SELECT * FROM departments', function (err, results) {
