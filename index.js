@@ -23,53 +23,64 @@ export function askQuestions(){
     inquirer
     .prompt(main_menu_questions)
     .then((answers) => {
-           console.log(answers.choose_option);
-      if (answers.choose_option === "See all Departments") {
-              show_departments ();        
-                   
-      } else  if (answers.choose_option === "View employee roles") {
-              show_employee_roles ();       
-                 
-    } else  if (answers.choose_option === "See all employees") {
-              show_employees ();       
-                 
-    } else  if (answers.choose_option === "Add a department") {
-              process_dept();      
-                 
-    } else if(answers.choose_option === "Add a role"){
+
+      let  { choose_option } = answers;
+
+      // use switch statement
+      switch (choose_option) {
+       case "See all Departments":
+         show_departments ();
+         break;
+       case "See all employees":
+         show_employees ();   
+         break;
+       case "View employee roles":
+         show_employee_roles ();  
+         break; 
+       case "Add a department":
+         process_dept();  
+         break; 
+       case "View employee roles":
+         show_employee_roles ();  
+         break; 
+       case "Add a role":
+         process_role();    
+         break; 
+       case "Add an employee":
+         process_employee();    
+         break; 
+       case "Update an employee":
+         process_update_employee();    
+         break; 
+       case "Update employee manager":
+         process_update_employee_manager();    
+         break; 
+       case "View employees by manager":
+         process_show_employee_by_manager();   
+         break;   
+       case "View employees by department":
+         process_show_employee_by_department();    
+         break; 
+       case "Delete department":
+         process_delete_department();    
+         break; 
+       case "Delete a role":
+         process_delete_role(); 
+         break; 
+       case "Delete an employee":
+         process_delete_employee();    
+         break; 
+       case "View budget for department":
+         process_budget();    
+         break; 
        
-                process_role();       
-
-    } else if (answers.choose_option === "Add an employee") {
-                 process_employee();
-    }   else if (answers.choose_option === "Update an employee") {
-              process_update_employee();
-    }
-    else if (answers.choose_option === "Update employee manager") {
-            process_update_employee_manager();
-    }else if (answers.choose_option === "View employees by manager") {
-            process_show_employee_by_manager();
-    } else if (answers.choose_option === "View employees by department") {
-             process_show_employee_by_department();
-    } else if (answers.choose_option === "Delete department") {
-               process_delete_department();
-    }else if (answers.choose_option === "Delete a role") {
-            process_delete_role();
-    } else if (answers.choose_option === "Delete an employee") {
-           process_delete_employee();
-   }  else if (answers.choose_option === "View budget for department") {
-           process_budget();
-}  else {
-        process.exit();
-    }
-
+       default:
+         process.exit();
+       
+     }
     })
     .catch((error) => {
-      if (error.isTtyError) {
-        console.log(error);
-      } else {
-        console.log("New error");
-      }
+      if (error) { console.log(error); } 
     });
   
     
@@ -98,11 +109,7 @@ function process_dept(){
     console.log("Department was added!");
   })
   .catch((error) => {
-    if (error.isTtyError) {
-      console.log("error");
-    } else {
-        console.log(" new error on prcess department");
-    }
+    if (error) { console.log(error); } 
   });   
 
 }
@@ -122,11 +129,7 @@ function process_role(){
    
   })
   .catch((error) => {
-    if (error.isTtyError) {
-     console.log(error);
-    } else {
-    console.log("new error on add role question");
-    }
+    if (error) { console.log(error); } 
   });   
 }
 
@@ -152,12 +155,7 @@ function process_employee(){
       add_employee(answers.add_first_name, answers.add_last_name, role_id, the_manager_id );
   })
   .catch((error) => {
-      if (error.isTtyError) {
-      console.log(error);
-      } else {
-      console.log("New error at employee process");
-     
-      }
+    if (error) { console.log(error); } 
   });
 }
 
@@ -180,11 +178,7 @@ function process_update_employee(){
       
   })
   .catch((error) => {
-      if (error.isTtyError) {
-      console.log(error);
-      } else {
-      console.log("New error");
-      }
+    if (error) { console.log(error); } 
   });
 }
 
@@ -209,11 +203,7 @@ function process_update_employee_manager(){
       
   })
   .catch((error) => {
-      if (error.isTtyError) {
-      console.log(error);
-      } else {
-      console.log("New error at process update employee manager");
-      }
+    if (error) { console.log(error); } 
   });
 }
 
@@ -228,15 +218,11 @@ function process_show_employee_by_manager(){
       let manager_id_chosen = managerIdsArray[indexManagerInArray];
       show_employees_by_manager(manager_id_chosen);
       
-      askQuestions();
+     
      
   })
   .catch((error) => {
-      if (error.isTtyError) {
-      console.log(error);
-      } else {
-      console.log("New error at process update employee manager");
-      }
+    if (error) { console.log(error); } 
   });
 }
 
@@ -251,15 +237,11 @@ function process_show_employee_by_department(){
       let department_id_chosen = departmentIdsArray[indexDepartmentInArray];
       show_employees_by_department (department_id_chosen);
       
-      askQuestions();
+      
      
   })
   .catch((error) => {
-      if (error.isTtyError) {
-      console.log(error);
-      } else {
-      console.log("New error at process update employee manager");
-      }
+    if (error) { console.log(error); } 
   });
 }
 
@@ -278,11 +260,7 @@ function process_delete_department(){
     
   })
   .catch((error) => {
-      if (error.isTtyError) {
-      console.log(error);
-      } else {
-      console.log("New error at process delete department");
-      }
+    if (error) { console.log(error); } 
   });
 }
 
@@ -302,11 +280,7 @@ function process_delete_role(){
       
   })
   .catch((error) => {
-      if (error.isTtyError) {
-      console.log(error);
-      } else {
-      console.log("New error at process delete role");
-      }
+    if (error) { console.log(error); } 
   });
 }
 
@@ -326,11 +300,7 @@ function process_delete_employee(){
     
   })
   .catch((error) => {
-      if (error.isTtyError) {
-      console.log(error);
-      } else {
-      console.log("New error at process delete employee");
-      }
+    if (error) { console.log(error); } 
   });
 }
 
@@ -349,11 +319,7 @@ function process_budget(){
       
   })
   .catch((error) => {
-      if (error.isTtyError) {
-      console.log(error);
-      } else {
-      console.log("New error at process budget");
-      }
+    if (error) { console.log(error); } 
   });
 }
 
