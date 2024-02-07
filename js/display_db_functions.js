@@ -1,4 +1,5 @@
 import {db} from './db_connection.js';
+import chalk from 'chalk';
 import { askQuestions } from '../index.js';
 import { departmentArray, roleArray, managerArray, employeeArray, employeeIdsArray, roleIdsArray, departmentIdsArray, managerIdsArray  } from './questions.js';
 
@@ -109,14 +110,16 @@ export function show_employee_roles () {
 
 export function add_department(dep){
     db.query('INSERT INTO departments (department) VALUES (?)', [dep]); 
-    console.log("The department was added!"); 
+    //console.log("The department was added!"); 
+    console.log(chalk.bold.bgGreenBright("The department was added!"));
     askQuestions() ;
 
 }
 
 export function add_role(role_title, role_salary, role_department){
     db.query('INSERT INTO employee_role (title, salary, dept_id ) VALUES (?, ?, ?)', [role_title, role_salary, role_department]);  
-    console.log("The role was added!");
+    //console.log("The role was added!");
+    console.log(chalk.bold.bgGreenBright("The role was added!"));
     console.log("===========================")
     askQuestions() ;
 
@@ -124,7 +127,8 @@ export function add_role(role_title, role_salary, role_department){
 
 export function add_employee(the_name, the_last_name, the_role, the_manager){
     db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id ) VALUES (?, ?, ?, ?)', [the_name, the_last_name, the_role, the_manager]);  
-    console.log("The employee was added!");
+    //console.log("The employee was added!");
+    console.log(chalk.bold.bgGreenBright("The employee was added!")); 
     askQuestions() ;
 
 }
@@ -153,7 +157,8 @@ export function update_the_employee_role(get_role_id, get_employee_id){
     role_id = ?
     where
     emp_id = ?`, [get_role_id, get_employee_id]);  
-    console.log("The employee was updated!");
+    //console.log("The employee was updated!");
+    console.log(chalk.bold.bgGreenBright("The employee was updated!")); 
     askQuestions() ;
 
 }
@@ -199,7 +204,8 @@ export function show_employees_by_department (department_id) {
 
 export function delete_department(department_id){
   db.query('DELETE FROM departments WHERE dept_id=?;', [department_id]);  
-  console.log("The department was deleted!");
+  //console.log("The department was deleted!");
+  console.log(chalk.bold.bgRed("The department was deleted!")); 
   console.log("===========================");
   askQuestions() ;
 
@@ -207,15 +213,17 @@ export function delete_department(department_id){
 
 export function delete_role(role_id){
   db.query('DELETE FROM employee_role WHERE role_id=?;', [role_id]);  
-  console.log("The role was deleted!");
+  //console.log("The role was deleted!");
+  console.log(chalk.bold.bgRed("The role was deleted!")); 
   console.log("===========================");
   askQuestions() ;
 
 }
 
 export function delete_employee(employee_id){
-  db.query('DELETE FROM employee WHERE emp_id=?;', [employee_id]);  
-  console.log("The employee was deleted!");
+  db.query('DELETE FROM employee WHERE emp_id=?;', [employee_id]); 
+  console.log(chalk.bold.bgRed("The employee was deleted!")); 
+  //console.log("The employee was deleted!");
   console.log("===========================");
   askQuestions() ;
 
