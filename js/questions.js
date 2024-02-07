@@ -15,8 +15,8 @@ export const main_menu_questions = [
             'View employees by manager',
             'View employees by department',
             'Delete department',
-            'Delete a role',
-            'Delete an employee',
+            'Delete a role',            
+            'View budget for department',
           'exit'],
             default: "See all Departments"
         }
