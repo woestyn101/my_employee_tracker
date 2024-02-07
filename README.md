@@ -2,18 +2,19 @@
 
 ## Description
 
-This project challenged me to use a server to deplay an app..
+This project challenged me to use a mysql database 
+and interact with it using node.js.
 
 During this project I learned how to:
 
-- setup a server with express.js.
-- create a datbase with a json file.
-- read and write to a json file.
-- setup routes for a server.
-- use input fields to get data from a user.
-- hide and show html elements with eventlisteners.
-- using fetch to get data.
-- using the post request to send data.
+- create a mysql database.
+- make a connection with the database.
+- create tables in fill it with data.
+- use mysql workbench
+- using CRUD operations on the database.
+- use the mysql2 package.
+- use the inquirer package to interact with database.
+
 
 ## Table of Contents:
 
@@ -22,17 +23,20 @@ During this project I learned how to:
 [Usage](#usage)
 [Credits](#credits)
 [License](#license)
-[Questions](#questions)
+
 
 ## Installation 
 
  Clone repository to local machine
 - run npm install
 - To start the progam run: node injex.js
+  
+## Video
 
 ## Usage
 
-This app provides an easy and accessible interface to get userinput and store that data in a json databse file.
+This app provides an easy and accessible command-interface 
+for a business owner to view and manage the departments, roles, and employees in his/her company.
 
 ## Screenshot of app
 
@@ -42,17 +46,16 @@ This app provides an easy and accessible interface to get userinput and store th
 
 I used and modified code from the following resources:
 
-https://www.youtube.com/watch?v=SccSCuHhOw0
+https://www.youtube.com/watch?v=344Zv2m9TYI
 
-https://www.youtube.com/watch?v=L72fhGm1tfE
+https://www.youtube.com/watch?v=tIV90xQ0k6A
 
-https://www.youtube.com/watch?v=nH9E25nkk3I
+https://stackoverflow.com/questions/60130169/not-showing-tables-with-null-value-when-i-select
 
-https://www.youtube.com/watch?v=7KKNRU0RRjE
+https://www.npmjs.com/package/mysql2
 
-https://www.youtube.com/watch?v=1cjdlfB11Ss
+https://www.youtube.com/watch?v=7S_tz1z_5bA
 
-https://developer.mozilla.org/en-US/docs/Web/API/Location/reload
 
 ## License
 

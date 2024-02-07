@@ -101,7 +101,7 @@ function process_dept(){
     if (error.isTtyError) {
       console.log("error");
     } else {
-        console.log(" new error");
+        console.log(" new error on prcess department");
     }
   });   
 
@@ -125,7 +125,7 @@ function process_role(){
     if (error.isTtyError) {
      console.log(error);
     } else {
-    console.log("new error");
+    console.log("new error on add role question");
     }
   });   
 }
@@ -177,7 +177,7 @@ function process_update_employee(){
       db.query('UPDATE employee SET role_id=? WHERE emp_id=?', [r_id, e_id] );  
       console.log("The employee was updated!");
       askQuestions();
-      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+      
   })
   .catch((error) => {
       if (error.isTtyError) {
@@ -194,7 +194,6 @@ function process_update_employee_manager(){
   .then((answers) => {
 
       let indexManagerInArray = (managerArray.indexOf(answers.the_new_manager)) 
-      //console.log(indexManagerInArray);
       let manager_id_toUpdate = managerIdsArray[indexManagerInArray];
      
 
@@ -207,7 +206,7 @@ function process_update_employee_manager(){
       db.query('UPDATE employee SET manager_id=? WHERE emp_id=?', [m_id, e_id] );  
       console.log("New manager was assigned!");
       askQuestions();
-      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+      
   })
   .catch((error) => {
       if (error.isTtyError) {
@@ -222,15 +221,15 @@ function process_show_employee_by_manager(){
   inquirer
   .prompt(choose_manager_questions)
   .then((answers) => {
-      //console.log(answers.choose_the_manager)
+      
 
       let indexManagerInArray = (managerArray.indexOf(answers.choose_the_manager)) 
-      //console.log(indexManagerInArray);
+   
       let manager_id_chosen = managerIdsArray[indexManagerInArray];
       show_employees_by_manager(manager_id_chosen);
       
       askQuestions();
-      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+     
   })
   .catch((error) => {
       if (error.isTtyError) {
@@ -245,15 +244,15 @@ function process_show_employee_by_department(){
   inquirer
   .prompt(choose_department_question)
   .then((answers) => {
-      //console.log(answers.choose_the_manager)
+     
 
       let indexDepartmentInArray = (departmentArray.indexOf(answers.choose_the_department)) 
-      //console.log(indexManagerInArray);
+     
       let department_id_chosen = departmentIdsArray[indexDepartmentInArray];
       show_employees_by_department (department_id_chosen);
       
       askQuestions();
-      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+     
   })
   .catch((error) => {
       if (error.isTtyError) {
@@ -268,15 +267,15 @@ function process_delete_department(){
   inquirer
   .prompt(delete_department_question)
   .then((answers) => {
-      //console.log(answers.choose_the_manager)
+    
 
       let indexDepartmentInArray = (departmentArray.indexOf(answers.delete_the_department)) 
-      //console.log(indexManagerInArray);
+      
       let department_id_chosen = departmentIdsArray[indexDepartmentInArray];
       delete_department(department_id_chosen)
       console.log("===========================")
      
-      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+    
   })
   .catch((error) => {
       if (error.isTtyError) {
@@ -291,7 +290,7 @@ function process_delete_role(){
   inquirer
   .prompt(delete_role_question)
   .then((answers) => {
-      //console.log(answers.choose_the_manager)
+     
 
        let indexRoleInArray = (roleArray.indexOf(answers.delete_the_role)) 
       let role_id_toDelete = roleIdsArray[indexRoleInArray];
@@ -300,7 +299,7 @@ function process_delete_role(){
       delete_role(role_id_toDelete);
       console.log("===========================")
      
-      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+      
   })
   .catch((error) => {
       if (error.isTtyError) {
@@ -316,8 +315,7 @@ function process_delete_employee(){
   inquirer
   .prompt(delete_employee_question)
   .then((answers) => {
-      //console.log(answers.choose_the_manager)
-
+    
       let indexEmployeeInArray = (employeeArray.indexOf(answers.delete_employee)) 
       let employee_id_toDelete = employeeIdsArray[indexEmployeeInArray];
 
@@ -325,7 +323,7 @@ function process_delete_employee(){
      delete_employee(employee_id_toDelete);
       console.log("===========================")
      
-      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+    
   })
   .catch((error) => {
       if (error.isTtyError) {
@@ -341,15 +339,14 @@ function process_budget(){
   inquirer
   .prompt(budget_question)
   .then((answers) => {
-      //console.log(answers.choose_the_manager)
-
+    
       let departmentBudgetName = answers.view_budget;
   console.log(departmentBudgetName);
       
      get_Budget(departmentBudgetName);
       console.log("===========================")
      
-      // add_employee(answers.add_first_name, answers.add_last_name, indexRoles, indexManager)
+      
   })
   .catch((error) => {
       if (error.isTtyError) {
