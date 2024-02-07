@@ -1,3 +1,5 @@
+// main menu questions for inquirer
+
 export const main_menu_questions = [
     
         {
@@ -10,7 +12,7 @@ export const main_menu_questions = [
                 'Add a department',
                 'Add a role',
             'Add an employee',
-            'Update an employee',
+            'Update an employee role',
             'Update employee manager',
             'View employees by manager',
             'View employees by department',
@@ -22,10 +24,12 @@ export const main_menu_questions = [
             default: "See all Departments"
         }
        
-        /* Pass your questions in here */
-      
+          
 
 ]
+
+// Setting empy arrays for dropdown menus to be used
+// in choice list questions in inquirer
 
 export var departmentArray = [];
 export var departmentIdsArray = [];
@@ -36,20 +40,23 @@ export var employeeArray = [];
 export var employeeIdsArray = [];
 export var  roleIdsArray = [];
 
+// add department question
+
 export const add_department_question = 
     
     [
-        /* Pass your questions in here */
-        {
+               {
           type: 'input',
           name: 'dept_name',
           message: "What is the name of the department?",
           default: ""
       }
       ]
+
+      // add role questions
   
       export const add_role_questions = [
-        /* Pass your questions in here */
+       
         {
           type: 'input',
           name: 'the_role',
@@ -70,8 +77,10 @@ export const add_department_question =
       }
       ]
 
+      // add employee questions
+
      export const add_employee_questions =  [
-        /* Pass your questions in here */
+       
         {
             type: 'input',
             name: 'add_first_name',
@@ -99,8 +108,10 @@ export const add_department_question =
         }
     ]
 
+    // update employee questions
+
     export const update_employee_role_questions = [
-        /* Pass your questions in here */
+       
         {
           type: 'list',
           name: 'choose_employee',
@@ -117,8 +128,10 @@ export const add_department_question =
     }
       ]
 
+      // update employee manager questions
+
       export const update_employee_manager_questions = [
-        /* Pass your questions in here */
+       
         {
           type: 'list',
           name: 'choose_employee',
@@ -135,8 +148,10 @@ export const add_department_question =
     }
       ]
 
+      // choose manager questions
+
       export const choose_manager_questions = [
-        /* Pass your questions in here */
+        
         {
           type: 'list',
           name: 'choose_the_manager',
@@ -146,8 +161,10 @@ export const add_department_question =
       }
       ]
 
+      // choose department question
+
       export const choose_department_question = [
-        /* Pass your questions in here */
+      
         {
           type: 'list',
           name: 'choose_the_department',
@@ -157,8 +174,10 @@ export const add_department_question =
       }
       ]
 
+      // delete department question
+
       export const delete_department_question = [
-        /* Pass your questions in here */
+        
         {
           type: 'list',
           name: 'delete_the_department',
@@ -168,8 +187,10 @@ export const add_department_question =
       }
       ]
 
+      // delete role question
+
       export const delete_role_question = [
-        /* Pass your questions in here */
+        
         {
           type: 'list',
           name: 'delete_the_role',
@@ -179,8 +200,10 @@ export const add_department_question =
       }
       ]
 
+      // delete employee questions
+
       export const delete_employee_question = [
-        /* Pass your questions in here */
+       
         {
           type: 'list',
           name: 'delete_employee',
@@ -190,8 +213,10 @@ export const add_department_question =
       }
       ]
 
+      // budget question
+
       export const budget_question = [
-        /* Pass your questions in here */
+      
         {
           type: 'list',
           name: 'view_budget',
