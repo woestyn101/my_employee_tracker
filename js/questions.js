@@ -189,3 +189,14 @@ export const add_department_question =
       }
       ]
 
+      export const budget_question = [
+        /* Pass your questions in here */
+        {
+          type: 'list',
+          name: 'view_budget',
+          message: "Choose the department to view budget:",
+          choices: departmentArray,
+          default: ""
+      }
+      ]
+
