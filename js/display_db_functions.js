@@ -221,4 +221,25 @@ export function delete_employee(employee_id){
 
 }
 
+export function get_Budget(dept_name){
+  db.query(` SELECT  sum(salary) 
+  FROM employee e
+  LEFT JOIN employee_role on 
+ e.role_id = employee_role.role_id
+ LEFT JOIN employee em on
+ e.manager_id = em.emp_id
+ LEFT JOIN departments on departments.dept_id = employee_role.dept_id
+ WHERE department=?;`, [dept_name], function (err, results) {
+  // console.log(results);
+  // console.log(typeof(results));
+  console.log("================================");
+ console.table(results);  
+ console.log("================================"); 
+       askQuestions() ;
+ 
+
+});  
+
+}
+
 
