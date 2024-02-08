@@ -30,6 +30,10 @@ During this project I learned how to:
  Clone repository to local machine
 - run npm install
 - To start the progam run: node injex.js
+- to create database with tables
+- run source on all .sql files in sql_files folder
+- in the sql command shell.
+- configure your db settings in the db_connection.js file.
   
 ## Video
 
