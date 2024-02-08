@@ -37,6 +37,9 @@ During this project I learned how to:
   
 ## Video
 
+https://drive.google.com/file/d/1SHq1qjDCqv24UIbXe9e96qLidYFZbEza/view?usp=sharing
+
+
 ## Usage
 
 This app provides an easy and accessible command-interface 

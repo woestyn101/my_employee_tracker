@@ -44,48 +44,64 @@ export function askQuestions(){
       // and used appropriate function for that answers
       switch (choose_option) {
        case "See all Departments":
+         get_Departments();
          show_departments ();
          break;
        case "See all employees":
+        get_Employees();
          show_employees ();   
          break;
        case "View employee roles":
+        get_Roles();
          show_employee_roles ();  
          break; 
        case "Add a department":
+        get_Departments();
          process_dept();  
          break; 
        case "View employee roles":
+         get_Roles();
          show_employee_roles ();  
          break; 
        case "Add a role":
+        get_Roles();
          process_role();    
          break; 
        case "Add an employee":
+        get_Employees();
          process_employee();    
          break; 
-       case "Update an employee":
+       case "Update an employee role":         
          process_update_employee();    
          break; 
        case "Update employee manager":
-         process_update_employee_manager();    
+         get_Employees();
+          process_update_employee_manager();    
          break; 
        case "View employees by manager":
+         get_Managers();
+         get_Employees();
          process_show_employee_by_manager();   
          break;   
        case "View employees by department":
+        get_Departments();
+        get_Employees();
          process_show_employee_by_department();    
          break; 
        case "Delete department":
+         get_Departments();
          process_delete_department();    
          break; 
        case "Delete a role":
+         get_Roles();
          process_delete_role(); 
          break; 
        case "Delete an employee":
+         get_Employees();
          process_delete_employee();    
          break; 
        case "View budget for department":
+         get_Departments();
          process_budget();    
          break; 
        
@@ -186,7 +202,7 @@ function process_employee(){
   });
 }
 
-// function to update employee
+// function to update employee role
 
 function process_update_employee(){
   inquirer
